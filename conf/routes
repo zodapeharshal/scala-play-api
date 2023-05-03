@@ -13,6 +13,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET  /todo    controllers.TodoListController.getAll
 GET  /employees   controllers.EmployeeController.getAll
 GET  /employees/:employeeId    controllers.EmployeeController.getById(employeeId:Int) 
-POST  /employees/add    controllers.EmployeeController.add 
+POST  /employees/add    controllers.EmployeeController.add()
 PUT  /employees/update/:id    controllers.EmployeeController.update(id:Int)
 DELETE  /employees/delete/:id    controllers.EmployeeController.delete(id: Int)

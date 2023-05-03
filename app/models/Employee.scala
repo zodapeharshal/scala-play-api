@@ -40,7 +40,7 @@ class EmployeeList @Inject()(
     extends HasDatabaseConfigProvider[JdbcProfile] {
         var employeeList = TableQuery[EmployeeTableDef]
 
-        def add(emp: Employee): Future[String] = {
+        def add(emp: Employee)= {
             dbConfig.db
             .run(employeeList += emp)
             .map(res => "Added Employee")

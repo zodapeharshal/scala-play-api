@@ -85,7 +85,7 @@ class EmployeeController @Inject()(
     }
 
     def add() = Action.async {implicit request: Request[AnyContent] => 
-        EmployeeForm.form.bindFromRequest.fold(
+        EmployeeForm.form.bindFromRequest().fold(
             errorForm => {
                 errorForm.errors.foreach(println)
                 Future.successful(BadRequest("Error!"))
@@ -98,7 +98,7 @@ class EmployeeController @Inject()(
     }
 
     def update(id: Int) = Action.async {implicit request: Request[AnyContent] => 
-        EmployeeForm.form.bindFromRequest.fold(
+        EmployeeForm.form.bindFromRequest().fold(
             errorForm => {
                 errorForm.errors.foreach(println)
                 Future.successful(BadRequest("Error!"))

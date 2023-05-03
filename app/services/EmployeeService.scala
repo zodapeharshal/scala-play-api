@@ -6,7 +6,7 @@ import scala.concurrent.Future
 
 class EmployeeService @Inject() (emps: EmployeeList) {
     
-    def addEmployee(emp: Employee): Future[Employee]= {
+    def addEmployee(emp: Employee): Future[String]= {
         emps.add(emp)
     }
 
