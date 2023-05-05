@@ -92,7 +92,7 @@ class EmployeeController @Inject()(
             },
             data => {
                 val newEmp = Employee(0, data.name, data.email, data.phone, data.department)
-                employeeService.addEmployee(newEmp).map(emp=> Ok(Json.toJson(emp)))
+                employeeService.addEmployee(newEmp).map(emp=> Created(Json.toJson(emp)))
             }
         )
     }
@@ -101,10 +101,10 @@ class EmployeeController @Inject()(
         EmployeeForm.form.bindFromRequest().fold(
             errorForm => {
                 errorForm.errors.foreach(println)
-                Future.successful(BadRequest("Error!"))
+                Future.successful(BadRequest("Error! BAD REQUEST "))
             },
             data => {
-                val newEmp = Employee(0, data.name, data.email, data.phone, data.department)
+                val newEmp = Employee(id, data.name, data.email, data.phone, data.department)
                 employeeService.updateEmployee(newEmp).map( _ => Redirect(routes.EmployeeController.getAll))
           
             }
@@ -112,6 +112,11 @@ class EmployeeController @Inject()(
     }
 
     def delete(id: Int) = Action.async { implicit  request: Request[AnyContent] => 
+    // val deletedRows = employeeService.deleteEmployee(id) 
+    // deletedRows match {
+    //     case 0 => NotFound
+    //     case scala.util.Failure(e) => InternalServerError("An error occured while deleting the employee")
+    // }
     employeeService.deleteEmployee(id)  map { res =>
           Redirect(routes.EmployeeController.getAll)
         }
