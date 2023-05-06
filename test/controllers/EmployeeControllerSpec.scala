@@ -33,19 +33,20 @@ class EmployeeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injec
       }
   }
 
-  // "EmployeeController DELETE" should {
-  //     "return 200 and should return updated list" in {
+  "EmployeeController DELETE" should {
+      "return 200 and should return updated list" in {
         
-  //       val request = FakeRequest(DELETE, "/employees/delete/69")
-  //       val result = route(app, request).get
+        val request = FakeRequest(DELETE, "/employees/delete/1000")
+        val response = route(app, request).get
+        status(response) mustBe OK
+        contentAsString(response) must include("Employee Not Found")
+        // 303 response redirected to other url 
+        // status(result) mustEqual SEE_OTHER 
+        // should redirect to this url 
+        // redirectLocation(result) mustBe Some("/employees")
 
-  //       // 303 response redirected to other url 
-  //       status(result) mustEqual SEE_OTHER 
-  //       // should redirect to this url 
-  //       redirectLocation(result) mustBe Some("/employees")
-
-  //     }
-  // }
+      }
+  }
   
   
 }

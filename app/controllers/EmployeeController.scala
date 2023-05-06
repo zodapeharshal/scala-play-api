@@ -112,13 +112,13 @@ class EmployeeController @Inject()(
     }
 
     def delete(id: Int) = Action.async { implicit  request: Request[AnyContent] => 
-    // val deletedRows = employeeService.deleteEmployee(id) 
-    // deletedRows match {
-    //     case 0 => NotFound
-    //     case scala.util.Failure(e) => InternalServerError("An error occured while deleting the employee")
-    // }
-    employeeService.deleteEmployee(id)  map { res =>
-          Redirect(routes.EmployeeController.getAll)
+    val deletedRows = employeeService.deleteEmployee(id) 
+    deletedRows.flatMap { rowsDeleted => 
+        if(rowsDeleted == 0) {
+            Future.successful(Ok("Employee Not Found"))
+        } else {
+            Future.successful(Ok("Employee Deleted"))
         }
+    }
     }
 }
